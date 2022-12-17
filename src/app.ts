@@ -5,7 +5,7 @@ import routes from './routes/index';
 
 const app: express.Application = express();
 const port = 3000;
-const address: string = `0.0.0.0:${port}`;
+const address: string = `localhost:${port}`;
 
 dotenv.config();
 app.use(bodyParser.json());
