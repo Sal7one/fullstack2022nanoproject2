@@ -71,7 +71,6 @@ const create = async (
     let lastName : string = req.body.lastname as string;
     let password : string = req.body.password as string;
 
-    console.log(req.body);
     if(firstName == undefined ||
     firstName.replace(/ /g, "").length == 0
     ){
@@ -107,7 +106,6 @@ const create = async (
         // Create user
         const createdUser = await userController.create(firstName, lastName, password);
         const token = jwt.sign({user: createdUser}, JWT_SECRET as string);
-        console.log(token);
         res.status(200)
         .json({token: token});
 

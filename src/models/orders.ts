@@ -147,7 +147,6 @@ export class OrderController {
 
         const updateQuantityResult = await conn.query(updateQuantityDataQuery, updateQuantityData);
 
-        console.log(updateQuantityResult)
         conn.release();
         return updateQuantityResult.rows[0];
 
