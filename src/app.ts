@@ -41,3 +41,5 @@ app.get('*', (req: express.Request, res: express.Response) => {
 app.listen(port, function () {
   console.log(`starting app on: ${address}`);
 });
+
+export default app

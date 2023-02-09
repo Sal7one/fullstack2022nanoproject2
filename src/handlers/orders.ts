@@ -36,7 +36,6 @@ const show = async (
         const ordersByUser = await ordersController.show(actualUserId);
         
         res.json({orders: ordersByUser});
-        
 
     } catch (error) {
         res.status(400);
