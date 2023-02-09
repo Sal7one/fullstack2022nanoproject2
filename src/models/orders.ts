@@ -20,15 +20,6 @@ export type OrderProduct = {
   prodcutQuantity: number;
 };
 
-export type OrderProducts = {
-  Id: number;
-  prodcutName: string;
-  prodcutPrice: number;
-  orderId: string;
-  prodcutId: string;
-  prodcutQuantity: number;
-};
-
 export class OrderController {
 
   async show(userId: number): Promise<Order[]> {
@@ -99,7 +90,14 @@ export class OrderController {
     }
   }
   
-  async orderProducts(orderID: number): Promise<OrderProducts[]> {
+  async orderProducts(orderID: number): Promise<
+  {Id: number,
+  prodcutName: string,
+  prodcutPrice: number,
+  orderId: string,
+  prodcutId: string,
+  prodcutQuantity: number,
+}[]> {
     try {
       // Query And It's data
       const orderData = [orderID];
@@ -132,7 +130,7 @@ export class OrderController {
         // Query And It's data
         const checkProductOrderData = [orderId, prodcutId];
         const CheckIfOrderProductExistsQuery =
-        'SELECT * FROM order_products WHERE order_id = ($1) AND prodcut_id = ($2) ' ;
+        'SELECT * FROM order_products WHERE order_id = ($1) AND product_id = ($2) ' ;
         const existsResult = await conn.query(CheckIfOrderProductExistsQuery, checkProductOrderData);
 
         if(existsResult.rows[0]){
@@ -154,7 +152,7 @@ export class OrderController {
           
         // Query And It's data
         const addNewOrderProductQuery =
-        'INSERT INTO order_products (order_id, prodcut_id, product_quantity)'
+        'INSERT INTO order_products (order_id, product_id, product_quantity)'
         + ' VALUES($1, $2, $3) RETURNING *';
         const newProductOrderData = [orderId, prodcutId, prodcutQuantity];
 

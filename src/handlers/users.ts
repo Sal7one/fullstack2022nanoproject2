@@ -18,7 +18,6 @@ const index = async (
     res: express.Response
 ) => {
     try {
-
         // Get All users
         const users = userController.index();
         res.json({users: users});

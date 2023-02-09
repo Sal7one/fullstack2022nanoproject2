@@ -2,15 +2,23 @@
     "dev": {
       "driver": "pg",
       "host": "127.0.0.1",
-      "database": "fantasy_worlds",
-      "user": "magical_user",
-      "password": "password123"
+      "database": "store_api_dev",
+      "user": "full_stack_user",
+      "password": "password1234"
     },
     "test": {
       "driver": "pg",
       "host": "127.0.0.1",
-      "database": "fantasy_worlds_test",
-      "user": "test_user",
-      "password": "password123"
+      "database": "store_api_test",
+      "user": "full_stack_user",
+      "password": "password1234"
+    },
+    "prod": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "store_api_prod",
+      "user": "full_stack_user",
+      "password": "password1234"
     }
   }
+
