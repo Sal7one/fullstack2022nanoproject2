@@ -14,9 +14,9 @@ export type Order = {
 };
 
 export type OrderProduct = {
-  Id: number;
-  prodcutId: string;
-  orderId: string;
+  id: number;
+  prodcutId: number;
+  orderId: number;
   prodcutQuantity: number;
 };
 
