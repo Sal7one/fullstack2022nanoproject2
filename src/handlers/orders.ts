@@ -9,8 +9,8 @@ const ordersRoutes = (app: express.Application) => {
     app.post("/orders/", verifyAuthToken, create);
     app.get("/orders/:id", verifyAuthToken, show);
     app.put("/orders/:id", verifyAuthToken, updateOrderStatus);
-    app.get("/orders/:id/products", verifyAuthToken, show);
-    app.post("/orders/:id/products", verifyAuthToken, show);
+    app.get("/orders/:id/products", verifyAuthToken, showOrderProdcuts);
+    app.post("/orders/:id/products", verifyAuthToken, addProdcutsToOrder);
 };
 
 const ordersController = new OrderController();
@@ -101,9 +101,73 @@ const updateOrderStatus = async (
         const actualOrderId : number =  parseInt(orderId);
         const actualStatus : string =  STAT_TABLE[indexOfStatus];
         
-        // Create Order
-        const createdOrder = ordersController.updateOrderStat(actualOrderId, actualStatus);
-        res.json({order: createdOrder});
+        // Update Order
+        const updatedOrder = ordersController.updateOrderStat(actualOrderId, actualStatus);
+        res.json({order: updatedOrder});
+
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+};
+
+const showOrderProdcuts = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    // Request Body
+    let orderId : string = req.query.orderId as string;
+    
+    if(Number.isNaN(parseInt(orderId))){
+        res.status(400);
+        res.json({error: "Bad Request: Order Id should be a number"});
+    }
+
+    try {
+        // Validate as required here
+        const actualOrderId : number =  parseInt(orderId);
+        //  Order
+        const orderProducts = ordersController.orderProducts(actualOrderId);
+        res.json({orderProducts: orderProducts});
+
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+};
+
+const addProdcutsToOrder = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    // Request Body
+    let orderId : string = req.query.orderId as string;
+    let productId : string = req.body.productId as string;
+    let quantity : string = req.body.quantity as string;
+    
+    if(Number.isNaN(parseInt(orderId))){
+        res.status(400);
+        res.json({error: "Bad Request: Order Id should be a number"});
+    }
+
+    if(Number.isNaN(parseInt(productId))){
+            res.status(400);
+            res.json({error: "Bad Request: Product Id should be a number"});
+        }
+    
+    if(Number.isNaN(parseInt(quantity))){
+        res.status(400);
+        res.json({error: "Bad Request: Quantity should be a number"});
+    }
+    try {
+        // Validate as required here
+        const actualOrderId : number =  parseInt(orderId);
+        const actualProductId : number =  parseInt(productId);
+        const actualprodcutQuantity: number =  parseInt(quantity);
+
+        //  Order Product
+        const orderProduct = ordersController.addOrderProducts(actualOrderId, actualProductId, actualprodcutQuantity);
+        res.json({orderProduct: orderProduct});
 
     } catch (error) {
         res.status(400);
