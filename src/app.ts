@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import routes from './routes/index';
+import ApplicationRouter from './routes/index';
 import cors from 'cors';
 
 const app: express.Application = express();
@@ -15,7 +15,8 @@ const corsOptinos = {
 app.use(cors(corsOptinos));
 app.use(bodyParser.json());
 
-app.use('/', routes);
+app.use('/', ApplicationRouter);
+
 app.listen(port, function () {
   console.log(`starting app on: ${address}`);
 });

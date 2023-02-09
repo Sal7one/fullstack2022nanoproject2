@@ -1,28 +1,18 @@
-
 import express from 'express';
+import verifyAuthToken from '../handlers/auth';
+import {Orders, OrderController} from '../models/orders';
 
-const createOrder = async (
-    req: express.Request,
-    res: express.Response
-  ): Promise<void> => {
-    const query = req.query;
-    const jsonErorr = { success: false, message: '' };
-  }
 
-  const showOrder = async (
+const ordersRoutes = (app: express.Application) => {
+    app.get("/orders/:id", verifyAuthToken, show);
+};
+
+const ordersController = new OrderController();
+
+const show = async (
     req: express.Request,
     res: express.Response
-  ): Promise<void> => {
-    const query = req.query;
-    const jsonErorr = { success: false, message: '' };
-  }
-  
-  const deleteOrder = async (
-    req: express.Request,
-    res: express.Response
-  ): Promise<void> => {
-    const query = req.query;
-    const jsonErorr = { success: false, message: '' };
-  }
-  
-  export {createOrder, showOrder, deleteOrder};
+) => {
+};
+
+export default ordersRoutes;

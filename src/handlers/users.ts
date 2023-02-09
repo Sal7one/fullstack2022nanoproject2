@@ -1,28 +1,32 @@
-
 import express from 'express';
+import verifyAuthToken from '../handlers/auth';
+import {User, UserController} from '../models/users';
 
-const createUser = async (
-    req: express.Request,
-    res: express.Response
-  ): Promise<void> => {
-    const query = req.query;
-    const jsonErorr = { success: false, message: '' };
-  }
 
-  const showUser = async (
+const usersRoutes = (app: express.Application) => {
+    app.get("/users", verifyAuthToken, index);
+    app.get("/users/:id",verifyAuthToken , show);
+    app.post("/users",verifyAuthToken , create);
+};
+
+const userController = new UserController();
+
+const index = async (
     req: express.Request,
     res: express.Response
-  ): Promise<void> => {
-    const query = req.query;
-    const jsonErorr = { success: false, message: '' };
-  }
-  
-  const deleteUser = async (
+) => {
+};
+
+const show = async (
     req: express.Request,
     res: express.Response
-  ): Promise<void> => {
-    const query = req.query;
-    const jsonErorr = { success: false, message: '' };
-  }
-  
-  export {createUser, showUser, deleteUser};
+) => {
+};
+
+const create = async (
+    req: express.Request,
+    res: express.Response
+) => {
+};
+
+export default usersRoutes;

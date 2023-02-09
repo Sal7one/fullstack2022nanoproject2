@@ -1,5 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import {JWT_SECRET} from '../constatns'
 
 const verifyAuthToken = (
 req: express.Request,
@@ -9,9 +10,7 @@ next: express.NextFunction
     try {
         const authorizationHeader = req.headers.authorization || "null"
         const token = authorizationHeader.split(' ')[1]
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
-        console.log(decoded)
-        // Allowed
+        const decoded = jwt.verify(token, JWT_SECRET as string)
         next()
     } catch (error) {
         res.status(401);
