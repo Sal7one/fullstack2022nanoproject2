@@ -9,6 +9,8 @@ const ordersRoutes = (app: express.Application) => {
     app.post("/orders/", verifyAuthToken, create);
     app.get("/orders/:id", verifyAuthToken, show);
     app.put("/orders/:id", verifyAuthToken, updateOrderStatus);
+    app.get("/orders/:id/products", verifyAuthToken, show);
+    app.post("/orders/:id/products", verifyAuthToken, show);
 };
 
 const ordersController = new OrderController();
@@ -72,7 +74,6 @@ const updateOrderStatus = async (
     req: express.Request,
     res: express.Response
 ) => {
-
     // Request Body
     let orderId : string = req.body.orderId as string;
     let status : string = req.body.status as string;
