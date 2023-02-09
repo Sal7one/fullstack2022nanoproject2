@@ -1,6 +1,6 @@
 import express from 'express';
 import verifyAuthToken from '../handlers/auth';
-import {Orders, OrderController} from '../models/orders';
+import {Order, OrderController} from '../models/orders';
 
 
 const ordersRoutes = (app: express.Application) => {

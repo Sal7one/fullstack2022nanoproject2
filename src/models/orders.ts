@@ -1,51 +1,64 @@
 import client from "../database";
-import bcrypt from 'bcrypt';
 
-import {PEPPER, SALT_ROUNDS} from '../constatns'
+export type Order = {
+  id: number;
+  status: string;
+  userId: number;
+};
 
-export type User = {
-id: Number;
-firstname: string;
-lastname: string;
-password: string;
-}
+export type OrderProdcut = {
+  Id: number;
+  prodcutId: string;
+  orderId: string;
+  quantity: number;
+};
 
-export class Users {
+export class OrderController {
   
-    async create(u: User): Promise<User> {
-        try {
-          const conn = await client.connect()
-          const sql = 'INSERT INTO users (username, lastname, password_digest) VALUES($1, $2, $3) RETURNING *'
-      
-          const hash = bcrypt.hashSync(
-            u.password + PEPPER, 
-            parseInt(SALT_ROUNDS as string)
-          );
+  async index(): Promise<Order[]> {
+    try {
+      // Query And It's data
+      const sql = "SELECT * FROM orders";
 
-          const userData = [u.firstname,u.lastname, hash]
-          const result = await conn.query(sql,userData )
-          const user = result.rows[0]
-          conn.release()
-      
-          return user
-        } catch(err) {
-          throw new Error(`unable create user (${u.firstname} ${u.lastname}): ${err}`)
-        } 
-      }
-        
-    async authenticate(id: Number, password: string): Promise<User | null> {
-        const conn = await client.connect()
-        const sql = 'SELECT password_digest FROM users WHERE id=($1)'
-      
-        const result = await conn.query(sql, [id])
-      
-        if(result.rows.length) {
-          const user = result.rows[0]
-          if (bcrypt.compareSync(password+PEPPER, user['password_digest'])) {
-            return user
-          }
-        }
-        return null
-}
+      // Connection
+      const conn = await client.connect();
+      const result = await conn.query(sql);
+
+      // Result
+      const order = result.rows;
+
+      // Release
+      conn.release();
+
+      return order;
+    } catch (err) {
+      throw new Error(`Unable to fetch orders: ${err}`);
+    }
+  }
+
+  async show(orderId: number, userId: number): Promise<Order | null> {
+    try {
+      // Query And It's data
+      const orderData = [orderId, userId];
+      const sql = "SELECT * FROM orders where id=$($1) and user_id=$($2)";
+
+      // Connection
+      const conn = await client.connect();
+      const result = await conn.query(sql, orderData);
+
+      // Result
+      const order = result.rows[0];
+
+      if(order === undefined)
+      return null
+
+      // Release
+      conn.release();
+
+      return order;
+    } catch (err) {
+      throw new Error(`Unable to fetch order (${orderId}, ${userId}): ${err}`);
+    }
+  }
 
 }

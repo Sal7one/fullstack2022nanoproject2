@@ -10,7 +10,8 @@ next: express.NextFunction
     try {
         const authorizationHeader = req.headers.authorization || "null"
         const token = authorizationHeader.split(' ')[1]
-        const decoded = jwt.verify(token, JWT_SECRET as string)
+        jwt.verify(token, JWT_SECRET as string)
+        // Allowed
         next()
     } catch (error) {
         res.status(401);

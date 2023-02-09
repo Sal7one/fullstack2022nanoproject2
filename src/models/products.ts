@@ -1,51 +1,77 @@
 import client from "../database";
-import bcrypt from 'bcrypt';
 
-import {PEPPER, SALT_ROUNDS} from '../constatns'
+export type Product = {
+  Id: number;
+  name: string;
+  price: number;
+};
 
-export type User = {
-id: Number;
-firstname: string;
-lastname: string;
-password: string;
-}
+export class ProductController {
+  async index(): Promise<Product[]> {
+    try {
+      // Query And It's data
+      const sql = "SELECT id, name, price FROM products";
 
-export class Users {
-  
-    async create(u: User): Promise<User> {
-        try {
-          const conn = await client.connect()
-          const sql = 'INSERT INTO users (username, lastname, password_digest) VALUES($1, $2, $3) RETURNING *'
+      // Connection
+      const conn = await client.connect();
+      const result = await conn.query(sql);
+
+      // Result
+      const products = result.rows;
+
+      // Release
+      conn.release();
+
+      return products;
+    } catch (err) {
+      throw new Error(`Unable to fetch products: ${err}`);
+    }
+  }
+
+  async show(productId: string): Promise<Product | null> {
+    try {
+      // Query And It's data
+      const productData = [productId];
+      const sql = "SELECT id, name, price FROM products WHERE id=$($1)";
+
+      // Connection
+      const conn = await client.connect();
+      const result = await conn.query(sql, productData);
+
+      // Result
+      const product = result.rows[0];
+
+      if(product === undefined)
+        return null;
+
+      // Release
+      conn.release();
+
+      return product;
+    } catch (err) {
+      throw new Error(`Unable to Get Prodcut with ID (${productId}): ${err}`);
+    }
+  }
+
+  async create(productName: string, productPrice: number): Promise<Product> {
+    try {
+      // Query And It's data
+      const productData = [productName, productPrice];
+      const sql ="INSERT INTO products (name, price) VALUES($1, $2) RETURNING *";
       
-          const hash = bcrypt.hashSync(
-            u.password + PEPPER, 
-            parseInt(SALT_ROUNDS as string)
-          );
+      // Connection
+      const conn = await client.connect();
+      const result = await conn.query(sql, productData);
 
-          const userData = [u.firstname,u.lastname, hash]
-          const result = await conn.query(sql,userData )
-          const user = result.rows[0]
-          conn.release()
-      
-          return user
-        } catch(err) {
-          throw new Error(`unable create user (${u.firstname} ${u.lastname}): ${err}`)
-        } 
-      }
-        
-    async authenticate(id: Number, password: string): Promise<User | null> {
-        const conn = await client.connect()
-        const sql = 'SELECT password_digest FROM users WHERE id=($1)'
-      
-        const result = await conn.query(sql, [id])
-      
-        if(result.rows.length) {
-          const user = result.rows[0]
-          if (bcrypt.compareSync(password+PEPPER, user['password_digest'])) {
-            return user
-          }
-        }
-        return null
-}
+      // Result
+      const product = result.rows[0];
 
+      // Release
+      conn.release();
+
+      return product;
+    } catch (err) {
+      throw new Error(`Unable to Create Prodcut with Info (${productName}, ${productPrice}): ${err}`);
+    }
+  }
 }
