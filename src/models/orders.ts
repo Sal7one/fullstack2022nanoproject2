@@ -4,6 +4,7 @@ export type Order = {
   id: number;
   status: string;
   userId: number;
+  quantity: number;
 };
 
 export type OrderProdcut = {
@@ -14,7 +15,7 @@ export type OrderProdcut = {
 };
 
 export class OrderController {
-  
+
   async index(): Promise<Order[]> {
     try {
       // Query And It's data

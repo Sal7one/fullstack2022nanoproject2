@@ -68,7 +68,7 @@ export class UserController {
       const userData = [firstname, lastname, hash];
       const sql =
         "INSERT INTO users (firstname, lastname, password_digest)" +
-        "VALUES($1, $2, $3) RETURNING *";
+        "VALUES($1, $2, $3) RETURNING (id, firstname, lastname)";
 
       // Connection
       const conn = await client.connect();
@@ -76,7 +76,7 @@ export class UserController {
 
       // Result
       const user = result.rows[0];
-
+      
       // Release
       conn.release();
 

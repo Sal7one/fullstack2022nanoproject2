@@ -28,7 +28,7 @@ export class ProductController {
     }
   }
 
-  async show(productId: string): Promise<Product | null> {
+  async show(productId: number): Promise<Product | null> {
     try {
       // Query And It's data
       const productData = [productId];
