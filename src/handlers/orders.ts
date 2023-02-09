@@ -8,7 +8,7 @@ const STAT_TABLE = [STATUS_ACTIVE, STATUS_COMPLETE];
 const ordersRoutes = (app: express.Application) => {
     app.post("/orders/", verifyAuthToken, create);
     app.get("/orders/:id", verifyAuthToken, show);
-    app.put("/orders/:id", verifyAuthToken, updateOrderStatus);
+    app.put("/orders/:orderId", verifyAuthToken, updateOrderStatus);
     app.get("/orders/:id/products", verifyAuthToken, showOrderProdcuts);
     app.post("/orders/:id/products", verifyAuthToken, addProdcutsToOrder);
 };
@@ -20,11 +20,12 @@ const show = async (
     res: express.Response
 ) => {
     // Request Body
-    const userReqId : string = req.query.userId as string;
+    const userReqId : string = req.body.userId as string;
     
     if(Number.isNaN(parseInt(userReqId))){
         res.status(400);
         res.json({error: "Bad Request: User Id should be a number"});
+        return;
     }
 
     try {
@@ -77,16 +78,18 @@ const updateOrderStatus = async (
     res: express.Response
 ) => {
     // Request Body
-    const orderId : string = req.body.orderId as string;
+    const orderId : string = req.params.orderId as string;
     let status : string = req.body.status as string;
     
     if(Number.isNaN(parseInt(orderId))){
         res.status(400);
-        res.json({error: "Bad Request: User Id should be a number"});
+        res.json({error: "Bad Request: Order Id should be a number"});
         return;
     }
 
-    if(status.replace(/ /g, "").length == 0 ){
+    if( status == undefined ||
+        status.replace(/ /g, "").length == 0 
+        ){
         res.status(400);
         res.json({error: "Bad Request: Status Can't be empty"});
         return;
@@ -108,7 +111,11 @@ const updateOrderStatus = async (
         
         // Update Order
         const updatedOrder = await ordersController.updateOrderStat(actualOrderId, actualStatus);
-        res.json({order: updatedOrder});
+
+        if(updatedOrder == null)
+            res.json({message: "No Order with this id"})
+        else
+            res.json({order: updatedOrder});
 
     } catch (error) {
         res.status(400);
@@ -121,7 +128,7 @@ const showOrderProdcuts = async (
     res: express.Response
 ) => {
     // Request Body
-    const orderId : string = req.query.orderId as string;
+    const orderId : string = req.params.id as string;
     
     if(Number.isNaN(parseInt(orderId))){
         res.status(400)
@@ -146,7 +153,7 @@ const addProdcutsToOrder = async (
     res: express.Response
 ) => {
     // Request Body
-    const orderId : string = req.query.orderId as string;
+    const orderId : string = req.params.id as string;
     const productId : string = req.body.productId as string;
     const quantity : string = req.body.quantity as string;
     

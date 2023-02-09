@@ -96,7 +96,7 @@ Response
 ```
 
 
-### /products/2 (GET)
+### /products/id (GET)
 AUTH: 
 NONE
 Response
@@ -112,19 +112,25 @@ Response
 
 ### /products (POST)
 
-AUTH: ```
+AUTH:
+ ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+
 ```
 
 BODY RAW JSON
 ```
+
 {
     "price": "123",
     "name": "Book About Programming"
 }
+
 ```
+
 Response
 ```
+
 {
     "product": {
         "id": 2,
@@ -132,8 +138,154 @@ Response
         "price": "123"
     }
 }
+
 ```
 
+
+Orders Route
+
+### /orders GET
+
+AUTH:
+ ```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+```
+
+BODY RAW JSON
+```
+{
+    "userId": "2"
+}
+```
+Response
+```
+{
+    "orders": [
+        {
+            "id": 1,
+            "status": "ACTIVE",
+            "user_id": 2
+        },
+        {
+            "id": 3,
+            "status": "ACTIVE",
+            "user_id": 2
+        }
+    ]
+}
+```
+
+
+### /orders POST
+
+
+AUTH:
+ ```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+```
+
+BODY RAW JSON
+```
+{
+    "userId": "2"
+
+```
+Response
+```
+{
+    "order": {
+        "id": 3,
+        "status": "ACTIVE",
+        "user_id": 2
+    }
+}
+```
+
+### /orders/id  PUT (ACTIVE, COMPLETE)
+
+
+AUTH:
+ ```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+```
+
+BODY RAW JSON
+```
+{
+    "status": "ACTIVE"
+}
+
+```
+Response
+```
+{
+    "order": {
+        "id": 3,
+        "status": "ACTIVE",
+        "user_id": 2
+    }
+}
+```
+
+### /orders/id/prodcuts (GET)
+
+AUTH:
+ ```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+```
+
+orders/1/prodcuts
+BODY RAW JSON
+```
+NONE
+
+```
+Response
+```
+{
+    "orderProducts": [
+        {
+            "name": "BookAboutProgramming",
+            "price": "123",
+            "order_id": 1,
+            "product_id": 2,
+            "product_quantity": 7
+        }
+    ]
+}
+```
+
+### /orders/id/prodcuts (POST)
+
+AUTH:
+ ```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+```
+
+orders/1/products
+
+(If product is already added the quantity gets summed)
+
+
+BODY RAW JSON
+```
+{
+    "productId": "2",
+    "quantity": "3"
+}
+
+```
+Response
+```
+{
+    "orderProduct": {
+        "id": 1,
+        "product_quantity": 7,
+        "product_id": 2,
+        "order_id": 1
+    }
+}
+```
 
 **Create user**
 

@@ -72,7 +72,7 @@ export class OrderController {
 
       // Query And It's data
       const orderData = [orderID, status];
-      const sql ="UPDATE orders SET status = $2 WHERE id=$1 RETURNING *";
+      const sql ="UPDATE orders SET status=($2) WHERE id=($1) RETURNING *";
       
       // Connection
       const conn = await client.connect();
@@ -86,7 +86,7 @@ export class OrderController {
 
       return order;
     } catch (err) {
-      throw new Error(`Unable to Create Order with Info (${orderID}, ${status}): ${err}`);
+      throw new Error(`Unable to UPDATE Order with Info (${orderID}, ${status}): ${err}`);
     }
   }
   
@@ -124,30 +124,33 @@ export class OrderController {
 
   async addOrderProducts(orderId: number, prodcutId: number, prodcutQuantity: number): Promise<OrderProduct> {
     try {
+
        // Connection
         const conn = await client.connect();
 
         // Query And It's data
         const checkProductOrderData = [orderId, prodcutId];
         const CheckIfOrderProductExistsQuery =
-        'SELECT * FROM order_products WHERE order_id = ($1) AND product_id = ($2) ' ;
+        'SELECT * FROM order_products WHERE order_id =($1) AND product_id =($2) ' ;
         const existsResult = await conn.query(CheckIfOrderProductExistsQuery, checkProductOrderData);
 
         if(existsResult.rows[0]){
         
         // Exists we need to modify quantity
-        const newQuantity = existsResult.rows[0].prodcutQuantity + prodcutQuantity;
+        const newQuantity = existsResult.rows[0]['product_quantity'] + prodcutQuantity;
         const orderProductId = existsResult.rows[0].id;
 
         // Query
         const updateQuantityData = [orderProductId, newQuantity];
         const updateQuantityDataQuery =
-        'UPDATE order_products SET product_quantity= ($2) WHERE id= ($1) RETURNING *' ;
+        'UPDATE order_products SET product_quantity=($2) WHERE id=($1) RETURNING *' ;
 
         const updateQuantityResult = await conn.query(updateQuantityDataQuery, updateQuantityData);
 
+        console.log(updateQuantityResult)
         conn.release();
         return updateQuantityResult.rows[0];
+
         }else{
           
         // Query And It's data
