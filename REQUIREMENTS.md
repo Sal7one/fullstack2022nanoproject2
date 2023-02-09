@@ -31,12 +31,15 @@ These are the notes from a meeting with the frontend developer that describe wha
 - id
 - firstName
 - lastName
-- password
+- password_digest
 
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
 - user_id
 - status of order (active or complete)
 
+#### Order products
+- id
+- product_quantity
+- product_id
+- order_id
