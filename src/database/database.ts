@@ -37,7 +37,7 @@ if (ENV === 'test') {
     port: PORT_NUMBER,
     database: POSTGRES_DB,
     user: POSTGRES_USER,
-    password: POSTGRES_PASS
+    password: POSTGRES_PASS as string
   });
 }
 
