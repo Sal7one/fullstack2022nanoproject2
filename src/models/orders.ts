@@ -1,5 +1,5 @@
 import client from "../database/database";
-import {STATUS_ACTIVE, STATUS_COMPLETE} from "../utils/constatns"
+import {STATUS_ACTIVE} from "../utils/constatns"
 
 // Status idealy should be in a Lookup Table
 // With a static value but since that is not required we're gonna ignore it

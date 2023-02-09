@@ -32,7 +32,7 @@ const show = async (
 ) => {
     
     // Request Body
-    let productReqId : string= req.query.productid as string;
+    const productReqId : string= req.query.productid as string;
     
     if(Number.isNaN(parseInt(productReqId))){
         res.status(400);
@@ -42,7 +42,7 @@ const show = async (
     try {
         // Validate as required here
         const idWithoutSpaces : string = productReqId.replace(/ /g, "");
-        let productId : number = parseInt(idWithoutSpaces);
+        const productId : number = parseInt(idWithoutSpaces);
 
         // Search user
         const foundProduct = productController.show(productId);
@@ -65,7 +65,7 @@ const create = async (
 
     // Request Body
     let productName : string = req.body.name as string;
-    let productPrice : string = req.body.price as string;
+    const productPrice : string = req.body.price as string;
     
     if(Number.isNaN(parseInt(productPrice))){
         res.status(400);

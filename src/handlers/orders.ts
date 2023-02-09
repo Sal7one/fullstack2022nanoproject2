@@ -20,7 +20,7 @@ const show = async (
     res: express.Response
 ) => {
     // Request Body
-    let userReqId : string= req.query.userId as string;
+    const userReqId : string = req.query.userId as string;
     
     if(Number.isNaN(parseInt(userReqId))){
         res.status(400);
@@ -48,7 +48,7 @@ const create = async (
 ) => {
 
     // Request Body
-    let userId : string = req.body.userId as string;
+    const userId : string = req.body.userId as string;
     
     if(Number.isNaN(parseInt(userId))){
         res.status(400);
@@ -75,7 +75,7 @@ const updateOrderStatus = async (
     res: express.Response
 ) => {
     // Request Body
-    let orderId : string = req.body.orderId as string;
+    const orderId : string = req.body.orderId as string;
     let status : string = req.body.status as string;
     
     if(Number.isNaN(parseInt(orderId))){
@@ -90,7 +90,7 @@ const updateOrderStatus = async (
 
     // Validate as required here
     status = status.replace(/ /g, "");
-    let indexOfStatus = STAT_TABLE.indexOf(status);
+    const indexOfStatus = STAT_TABLE.indexOf(status);
     if(indexOfStatus == -1 ){
         res.status(400);
         res.json({error: "Bad Request: Invalid Status"});
@@ -116,7 +116,7 @@ const showOrderProdcuts = async (
     res: express.Response
 ) => {
     // Request Body
-    let orderId : string = req.query.orderId as string;
+    const orderId : string = req.query.orderId as string;
     
     if(Number.isNaN(parseInt(orderId))){
         res.status(400);
@@ -141,9 +141,9 @@ const addProdcutsToOrder = async (
     res: express.Response
 ) => {
     // Request Body
-    let orderId : string = req.query.orderId as string;
-    let productId : string = req.body.productId as string;
-    let quantity : string = req.body.quantity as string;
+    const orderId : string = req.query.orderId as string;
+    const productId : string = req.body.productId as string;
+    const quantity : string = req.body.quantity as string;
     
     if(Number.isNaN(parseInt(orderId))){
         res.status(400);

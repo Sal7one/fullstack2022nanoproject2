@@ -5,7 +5,7 @@ import cors from 'cors';
 
 const app: express.Application = express();
 const port = 3000;
-const address: string = `localhost:${port}`;
+const address = `localhost:${port}`;
 
 const corsOptinos = {
   origin: 'localhost',

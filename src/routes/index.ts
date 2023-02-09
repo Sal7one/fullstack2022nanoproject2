@@ -1,7 +1,7 @@
 import express from 'express';
 import usersRouter from "../handlers/users";
-import productsRouter from "./products";
-import ordersRouter from "./orders";
+import productsRouter from "../handlers/prodcuts";
+import ordersRouter from "../handlers/orders";
 
 const router : express.Router = express.Router();
 

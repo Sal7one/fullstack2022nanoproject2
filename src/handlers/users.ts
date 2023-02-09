@@ -36,7 +36,7 @@ const show = async (
 ) => {
     
     // Request Body
-    let userReqId : string= req.query.userId as string
+    const userReqId : string= req.query.userId as string
     
     if(Number.isNaN(parseInt(userReqId))){
         res.status(400);
@@ -46,7 +46,7 @@ const show = async (
     try {
         // Validate as required here
         const idWithoutSpaces : string = userReqId.replace(/ /g, "");
-        let userId : number = parseInt(idWithoutSpaces);
+        const userId : number = parseInt(idWithoutSpaces);
 
         // Search user
         const foundUser = userController.show(userId);
