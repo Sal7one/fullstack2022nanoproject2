@@ -13,5 +13,10 @@ export const {
   POSTGRES_PORT,
   JWT_SECRET,
   SALT_ROUNDS,
-  PEPPER
+  PEPPER,
+  STATUS_ACTIVE = "ACTIVE",
+  STATUS_COMPLETE = "COMPLETE",
 } = process.env;
+
+
+

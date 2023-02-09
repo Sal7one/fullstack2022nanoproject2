@@ -15,7 +15,6 @@ const index = async (
     res: express.Response
 ) => {
     try {
-
         // Get All users
         const products = productController.index();
         res.json({products: products});
