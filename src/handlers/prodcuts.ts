@@ -1,7 +1,6 @@
 import express from 'express';
-import verifyAuthToken from '../handlers/auth';
-import {Product, ProductController} from '../models/products';
-
+import verifyAuthToken from '../middlewares/auth';
+import {ProductController} from '../models/products';
 
 const productsRoutes = (app: express.Application) => {
     app.get("/products", index);

@@ -9,7 +9,7 @@ import {
   POSTGRES_TEST_DB,
   POSTGRES_USER,
   POSTGRES_PORT
-} from './constatns';
+} from '../utils/constatns';
 
 let client: Pool;
 

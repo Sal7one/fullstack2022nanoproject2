@@ -1,8 +1,8 @@
 import express from 'express';
-import verifyAuthToken from '../handlers/auth';
-import {JWT_SECRET} from '../constatns';
+import verifyAuthToken from '../middlewares/auth';
+import {JWT_SECRET} from '../utils/constatns';
 import jwt from 'jsonwebtoken';
-import {User, UserController} from '../models/users';
+import {UserController} from '../models/users';
 
 
 const usersRoutes = (app: express.Application) => {

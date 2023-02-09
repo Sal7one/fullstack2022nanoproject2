@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import {JWT_SECRET} from '../constatns'
+import {JWT_SECRET} from '../utils/constatns'
 
 const verifyAuthToken = (
 req: express.Request,

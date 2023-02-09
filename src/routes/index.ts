@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import usersRouter from "../handlers/users";
 import productsRouter from "./products";
 import ordersRouter from "./orders";

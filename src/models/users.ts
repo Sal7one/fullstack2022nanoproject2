@@ -1,6 +1,6 @@
-import client from "../database";
+import client from "../database/database";
 import bcrypt from "bcrypt";
-import { PEPPER, SALT_ROUNDS } from "../constatns";
+import { PEPPER, SALT_ROUNDS } from "../utils/constatns";
 
 export type User = {
   id: number;
