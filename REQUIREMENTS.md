@@ -27,19 +27,56 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+```
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  price BIGINT NOT NULL
+);
+```
+
 #### User
 - id
 - firstName
 - lastName
 - password_digest
 
+```
+CREATE TABLE users (
+ id SERIAL PRIMARY KEY,
+ firstname VARCHAR(100) NOT NULL,
+ lastname VARCHAR(100) NOT NULL,
+ password_digest VARCHAR(100) NOT NULL
+ );
+```
+
 #### Orders
 - id
 - user_id
 - status of order (active or complete)
 
+```
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+status VARCHAR(100) NULL,
+user_id integer REFERENCES users(id) 
+  ON DELETE NO ACTION
+);
+
+```
 #### Order products
 - id
 - product_quantity
 - product_id
 - order_id
+
+```
+CREATE TABLE order_products (
+  id SERIAL PRIMARY KEY,
+  product_quantity INT NOT NULL,
+  product_id integer REFERENCES products(id) 
+  ON DELETE NO ACTION,
+  order_id integer REFERENCES orders(id) 
+  ON DELETE NO ACTION
+);
+```
