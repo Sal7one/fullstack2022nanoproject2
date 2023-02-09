@@ -1,4 +1,4 @@
-import { OrderProduct, OrderController } from '../orders';
+import OrderController from '../../src/models/orders';
 
 const orderController = new OrderController();
 

@@ -1,22 +1,10 @@
-import supertest from "supertest";
-import {SpecReporter} from "jasmine-spec-reporter";
-import app from '../src/app';
-
-jasmine.getEnv().clearReporters();
-jasmine.getEnv().addReporter(
-  new SpecReporter({
-    spec: {
-      displayPending: true,
-    },
-  })
-);
-
-const request = supertest(app);
-
-// describe('testing User endpoints', (): void => {
+"use strict";
+// import supertest from 'supertest';
+// import app from '../../app';
+// const request = supertest(app);
+// describe('testing User endpoints', () => {
 //   let token = '';
 //   beforeAll(async () => {
-
 //     const response = await request
 //       .post('/users')
 //       .send({ firstname: 'Saleh',  lastname: 'Alanazi', password: '123456789' });
@@ -24,21 +12,18 @@ const request = supertest(app);
 //       token = response.body.token;
 //     }
 //   });
-
 //   it('checking users index endpoint', async () => {
 //     const response = await request
 //       .get('/users')
 //       .set('Authorization', `Bearer ${token}`);
 //        expect(response.body).not.toBeUndefined();
 //   });
-
 //   it('show endpoint for user_id: 1', async () => {
 //     const response = await request
 //       .get('/users/1')
 //       .set('Authorization', `Bearer ${token}`);
 //     expect(response.body.id).toEqual(1);
 //   });
-
 //   it('create endpoint', async () => {
 //     const response = await request.post('/users').send({
 //       firstname: 'Nasser',
@@ -48,5 +33,3 @@ const request = supertest(app);
 //     expect(response.body.token).toBeDefined();
 //   });
 // });
-
-

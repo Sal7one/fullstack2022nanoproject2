@@ -1,19 +1,9 @@
-import supertest from "supertest";
-import {SpecReporter} from "jasmine-spec-reporter";
-import app from '../src/app';
+// import supertest from 'supertest';
+// import app from '../../app';
 
-jasmine.getEnv().clearReporters();
-jasmine.getEnv().addReporter(
-  new SpecReporter({
-    spec: {
-      displayPending: true,
-    },
-  })
-);
+// const request = supertest(app);
 
-const request = supertest(app);
-
-// describe('testing User endpoints', (): void => {
+// describe('testing User endpoints', () => {
 //   let token = '';
 //   beforeAll(async () => {
 
@@ -48,5 +38,3 @@ const request = supertest(app);
 //     expect(response.body.token).toBeDefined();
 //   });
 // });
-
-

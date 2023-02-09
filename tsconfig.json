@@ -8,10 +8,10 @@
     "forceConsistentCasingInFileNames": true,            
     "strict": true,                                   
     "skipLibCheck": true,    
-    "outDir": "./dist", 
+    "outDir": "./build", 
     "noImplicitAny": true                  
   },
   "include": ["src/**/*","tests/**/*"],
-  "exclude": ["node_modules", "./dist", "tests"],
+  "exclude": ["node_modules", "./build"],
   "compileOnSave": true
 }
