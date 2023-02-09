@@ -1,4 +1,4 @@
-import OrderController from '../../src/models/orders';
+import OrderController from '../orders';
 
 const orderController = new OrderController();
 

@@ -7,7 +7,7 @@ const STAT_TABLE = [STATUS_ACTIVE, STATUS_COMPLETE];
 
 const ordersRoutes = (app: express.Application) => {
     app.post("/orders/", verifyAuthToken, create);
-    app.get("/orders/:id", verifyAuthToken, show);
+    app.get("/orders/", verifyAuthToken, show);
     app.put("/orders/:orderId", verifyAuthToken, updateOrderStatus);
     app.get("/orders/:id/products", verifyAuthToken, showOrderProdcuts);
     app.post("/orders/:id/products", verifyAuthToken, addProdcutsToOrder);
