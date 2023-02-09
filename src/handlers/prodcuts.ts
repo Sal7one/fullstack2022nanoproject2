@@ -4,7 +4,7 @@ import {ProductController} from '../models/products';
 
 const productsRoutes = (app: express.Application) => {
     app.get("/products", index);
-    app.get("/products/:id", show);
+    app.get("/products/:productId", show);
     app.post("/products",verifyAuthToken , create);
 };
 
@@ -32,7 +32,7 @@ const show = async (
 ) => {
     
     // Request Body
-    const productReqId : string= req.query.productid as string;
+    const productReqId : string = req.params.productId as string;
     
     if(Number.isNaN(parseInt(productReqId))){
         res.status(400)
@@ -41,9 +41,7 @@ const show = async (
     }
 
     try {
-        // Validate as required here
-        const idWithoutSpaces : string = productReqId.replace(/ /g, "");
-        const productId : number = parseInt(idWithoutSpaces);
+        const productId : number = parseInt(productReqId);
 
         // Search user
         const foundProduct = await productController.show(productId);
@@ -82,10 +80,11 @@ const create = async (
         return;
     }
 
+    productName =  productName.replace(/ /g, "");
+
     try {
         // Validate as required here
-        productName =  productName.trim();
-        const actualPrice : number =  parseInt(productName);
+        const actualPrice : number =  parseInt(productPrice);
         
         // Create Product
         const createdProduct = await productController.create(productName, actualPrice);

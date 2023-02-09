@@ -32,7 +32,7 @@ export class ProductController {
     try {
       // Query And It's data
       const productData = [productId];
-      const sql = "SELECT id, name, price FROM products WHERE id=$($1)";
+      const sql = "SELECT id, name, price FROM products WHERE id=($1)";
 
       // Connection
       const conn = await client.connect();

@@ -55,19 +55,85 @@ Response
 AUTH: NONE
 
 BODY RAW JSON
-`
+```
 {
     "firstname": "asd",
     "lastname": "asd",
     "password": "asd"
 }
-`
+```
 Response
 ```
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM"
 }
 ```
+
+
+Products Route
+
+### /products (GET)
+AUTH: 
+NONE
+Response
+
+``` {
+    "products": [
+        [
+            {
+                "id": 1,
+                "name": "sssss",
+                "price": "123"
+            },
+            {
+                "id": 2,
+                "name": "BookAboutProgramming",
+                "price": "123"
+            }
+        ]
+    ]
+}
+```
+
+
+### /products/2 (GET)
+AUTH: 
+NONE
+Response
+
+```{
+    "product": {
+        "id": 2,
+        "name": "BookAboutProgramming",
+        "price": "123"
+    }
+}
+```
+
+### /products (POST)
+
+AUTH: ```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InJvdyI6Iig0LGFzZCxhc2QpIn0sImlhdCI6MTY3NTkzNDIyOX0.wAP5JTAs0883PFS87ebDRfvUyg7oem0fYKbEOTsLtcM
+```
+
+BODY RAW JSON
+```
+{
+    "price": "123",
+    "name": "Book About Programming"
+}
+```
+Response
+```
+{
+    "product": {
+        "id": 2,
+        "name": "BookAboutProgramming",
+        "price": "123"
+    }
+}
+```
+
 
 **Create user**
 

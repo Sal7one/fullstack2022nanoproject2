@@ -4,7 +4,6 @@ import {JWT_SECRET} from '../utils/constatns';
 import jwt from 'jsonwebtoken';
 import {UserController} from '../models/users';
 
-
 const usersRoutes = (app: express.Application) => {
     app.get("/users", verifyAuthToken, index);
     app.get("/users/:userId", verifyAuthToken , show);
@@ -35,7 +34,7 @@ const show = async (
 ) => {
     
     // Request Body
-    const userReqId : string= req.params.userId as string
+    const userReqId : string = req.params.userId as string
     
     if(Number.isNaN(parseInt(userReqId))){
         res.status(400)
