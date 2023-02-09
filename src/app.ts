@@ -15,6 +15,9 @@ const corsOptinos = {
 };
 
 app.use(cors(corsOptinos));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
 usersRouter(app)

@@ -19,7 +19,6 @@ export class UserController {
       const conn = await client.connect();
       const result = await conn.query(sql);
 
-      // Result
       const users = result.rows;
 
       // Release
@@ -35,7 +34,7 @@ export class UserController {
     try {
       // Query And It's data
       const userData = [id];
-      const sql = "SELECT id, firstname, lastname FROM users WHERE id=$($1)";
+      const sql = "SELECT id, firstname, lastname FROM users WHERE id=($1)";
 
       // Connection
       const conn = await client.connect();

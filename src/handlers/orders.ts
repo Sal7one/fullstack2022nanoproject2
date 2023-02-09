@@ -32,9 +32,10 @@ const show = async (
         const actualUserId : number =  parseInt(userReqId);
 
         // Search order by user
-        const ordersByUser = ordersController.show(actualUserId);
+        const ordersByUser = await ordersController.show(actualUserId);
         
         res.json({orders: ordersByUser});
+        
 
     } catch (error) {
         res.status(400);
@@ -53,6 +54,7 @@ const create = async (
     if(Number.isNaN(parseInt(userId))){
         res.status(400);
         res.json({error: "Bad Request: User Id should be a number"});
+        return;
     }
 
     try {
@@ -60,7 +62,7 @@ const create = async (
         const actualUserId : number =  parseInt(userId);
         
         // Create Order
-        const createdOrder = ordersController.create(actualUserId, STATUS_ACTIVE);
+        const createdOrder = await ordersController.create(actualUserId, STATUS_ACTIVE);
         res.json({order: createdOrder});
 
     } catch (error) {
@@ -81,11 +83,13 @@ const updateOrderStatus = async (
     if(Number.isNaN(parseInt(orderId))){
         res.status(400);
         res.json({error: "Bad Request: User Id should be a number"});
+        return;
     }
 
     if(status.replace(/ /g, "").length == 0 ){
         res.status(400);
         res.json({error: "Bad Request: Status Can't be empty"});
+        return;
     }
 
     // Validate as required here
@@ -94,6 +98,7 @@ const updateOrderStatus = async (
     if(indexOfStatus == -1 ){
         res.status(400);
         res.json({error: "Bad Request: Invalid Status"});
+        return;
     }
 
     try {
@@ -102,7 +107,7 @@ const updateOrderStatus = async (
         const actualStatus : string =  STAT_TABLE[indexOfStatus];
         
         // Update Order
-        const updatedOrder = ordersController.updateOrderStat(actualOrderId, actualStatus);
+        const updatedOrder = await ordersController.updateOrderStat(actualOrderId, actualStatus);
         res.json({order: updatedOrder});
 
     } catch (error) {
@@ -119,20 +124,20 @@ const showOrderProdcuts = async (
     const orderId : string = req.query.orderId as string;
     
     if(Number.isNaN(parseInt(orderId))){
-        res.status(400);
-        res.json({error: "Bad Request: Order Id should be a number"});
+        res.status(400)
+        .json({error: "Bad Request: Order Id should be a number"});
     }
 
     try {
         // Validate as required here
         const actualOrderId : number =  parseInt(orderId);
         //  Order
-        const orderProducts = ordersController.orderProducts(actualOrderId);
+        const orderProducts = await ordersController.orderProducts(actualOrderId);
         res.json({orderProducts: orderProducts});
 
     } catch (error) {
-        res.status(400);
-        res.json(error);
+        res.status(400)
+        .json(error);
     }
 };
 
@@ -146,18 +151,21 @@ const addProdcutsToOrder = async (
     const quantity : string = req.body.quantity as string;
     
     if(Number.isNaN(parseInt(orderId))){
-        res.status(400);
-        res.json({error: "Bad Request: Order Id should be a number"});
+        res.status(400)
+        .json({error: "Bad Request: Order Id should be a number"});
+        return;
     }
 
     if(Number.isNaN(parseInt(productId))){
-            res.status(400);
-            res.json({error: "Bad Request: Product Id should be a number"});
+            res.status(400)
+            .json({error: "Bad Request: Product Id should be a number"});
+            return;
         }
     
     if(Number.isNaN(parseInt(quantity))){
-        res.status(400);
-        res.json({error: "Bad Request: Quantity should be a number"});
+        res.status(400)
+        .json({error: "Bad Request: Quantity should be a number"});
+        return;
     }
     try {
         // Validate as required here
@@ -166,12 +174,12 @@ const addProdcutsToOrder = async (
         const actualprodcutQuantity: number =  parseInt(quantity);
 
         //  Order Product
-        const orderProduct = ordersController.addOrderProducts(actualOrderId, actualProductId, actualprodcutQuantity);
+        const orderProduct = await ordersController.addOrderProducts(actualOrderId, actualProductId, actualprodcutQuantity);
         res.json({orderProduct: orderProduct});
 
     } catch (error) {
-        res.status(400);
-        res.json(error);
+        res.status(400)
+        .json(error);
     }
 };
 

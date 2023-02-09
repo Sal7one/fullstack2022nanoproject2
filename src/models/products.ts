@@ -17,7 +17,7 @@ export class ProductController {
       const result = await conn.query(sql);
 
       // Result
-      const products = [...result.rows];
+      const products = result.rows;
 
       // Release
       conn.release();

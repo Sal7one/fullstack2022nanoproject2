@@ -16,12 +16,12 @@ const index = async (
 ) => {
     try {
         // Get All users
-        const products = productController.index();
-        res.json({products: products});
+        const products = await productController.index();
+        res.json({products: [products]});
 
     } catch (error) {
-        res.status(400);
-        res.json(error);
+        res.status(400)
+        .json(error);
     }
 
 };
@@ -35,8 +35,9 @@ const show = async (
     const productReqId : string= req.query.productid as string;
     
     if(Number.isNaN(parseInt(productReqId))){
-        res.status(400);
-        res.json({error: "Bad Request: Product Id should be a number"});
+        res.status(400)
+        .json({error: "Bad Request: Product Id should be a number"});
+        return;
     }
 
     try {
@@ -45,7 +46,7 @@ const show = async (
         const productId : number = parseInt(idWithoutSpaces);
 
         // Search user
-        const foundProduct = productController.show(productId);
+        const foundProduct = await productController.show(productId);
 
         if(foundProduct != null)
             res.json({product: foundProduct});
@@ -53,8 +54,8 @@ const show = async (
             res.json({message: "Product Does not exist"});
 
     } catch (error) {
-        res.status(400);
-        res.json(error);
+        res.status(400)
+        .json(error);
     }
 };
 
@@ -68,13 +69,17 @@ const create = async (
     const productPrice : string = req.body.price as string;
     
     if(Number.isNaN(parseInt(productPrice))){
-        res.status(400);
-        res.json({error: "Bad Request: Product Price should be a number"});
+        res.status(400)
+        .json({error: "Bad Request: Product Price should be a number"});
+        return;
     }
 
-    if(productName.replace(/ /g, "").length == 0 ){
-        res.status(400);
-        res.json({error: "Bad Request: Product Name Can't be empty"});
+    if( productName == undefined ||
+        productName.replace(/ /g, "").length == 0 
+    ){
+        res.status(400)
+        .json({error: "Bad Request: Product Name Can't be empty"});
+        return;
     }
 
     try {
@@ -83,12 +88,12 @@ const create = async (
         const actualPrice : number =  parseInt(productName);
         
         // Create Product
-        const createdProduct = productController.create(productName, actualPrice);
+        const createdProduct = await productController.create(productName, actualPrice);
         res.json({product: createdProduct});
 
     } catch (error) {
-        res.status(400);
-        res.json(error);
+        res.status(400)
+        .json(error);
     }
 };
 
