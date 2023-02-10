@@ -25,8 +25,6 @@ describe('testing User model', () => {
     };
 
     const result = await userController.create(newUser.firstname, newUser.lastname, newUser.password);
-    console.log("res:")
-    console.log(result)
     expect(result.firstname).toEqual(newUser.firstname);
   });
 

@@ -42,7 +42,7 @@ describe('testing order model', () => {
   
   const newOrderProduct: OrderProduct = {
     id: 0,
-    prodcutId: 1.0,
+    prodcutId: 1,
     orderId: 1,
     prodcutQuantity: 15
   };
