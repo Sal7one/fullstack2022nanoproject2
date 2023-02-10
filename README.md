@@ -34,7 +34,7 @@ ALTER DATABASE store_api_test OWNER TO full_stack_user;
 ```
 
 
-# Test Setup
+# Test 
 
 ```
  npm run test

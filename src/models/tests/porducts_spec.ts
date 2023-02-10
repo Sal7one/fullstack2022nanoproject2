@@ -33,7 +33,7 @@ describe('Testing Prodcuts model', () => {
 
   it(`show method should get product `, async () => {
     const result = await productController.show(commonProduct2.id);
-    expect(result!!.id).toEqual(commonProduct2.id);
+    expect(result?.id).toEqual(commonProduct2.id);
   });
 
   it('index method should get products list', async () => {

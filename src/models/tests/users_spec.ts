@@ -31,7 +31,7 @@ describe('testing User model', () => {
 
   it(`show method should get user`, async () => {
     const result = await userController.show(commonUser2.id);
-    expect(result!!.firstname).toEqual(commonUser2.firstname);
+    expect(result?.firstname).toEqual(commonUser2.firstname);
   });
 
   
