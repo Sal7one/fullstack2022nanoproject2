@@ -4,7 +4,7 @@ import app from '../../app';
 const request = supertest(app);
 import { 
   commonUser1,
-}from '../../testSetup_spec';
+}from '../../tests/testSetup_spec';
 
 describe('testing User endpoints', () => {
   let token = '';

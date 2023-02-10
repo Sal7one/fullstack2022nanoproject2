@@ -2,7 +2,7 @@ import { ProductController, Product} from '../products';
 
 import { 
   commonProduct2
- } from '../../testSetup_spec';
+ } from '../../tests/testSetup_spec';
 
 const productController = new ProductController();
 

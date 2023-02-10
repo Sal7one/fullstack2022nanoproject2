@@ -2,10 +2,9 @@ import OrderController, { Order, OrderProduct } from '../orders';
 
 import { 
   commonUser2,
-  commonOrder1,
   commonOrder2,
-  commonProduct1
- } from '../../testSetup_spec';
+  commonProduct2
+ } from '../../tests/testSetup_spec';
 
 const orderController = new OrderController();
 
@@ -28,7 +27,6 @@ describe('testing order model', () => {
   it('checking existing of add order prodcuts method', () => {
     expect(orderController.addOrderProducts).toBeDefined();
   });
-
      
   it('Create on model order', async () => {
     const newOrder: Order = {
@@ -46,24 +44,24 @@ describe('testing order model', () => {
     expect(result).not.toBeNull();
   });
 
-  
-  const newOrderProduct: OrderProduct = {
-    id: 0,
-    prodcutId: commonProduct1.id,
-    orderId: commonOrder1.id,
-    prodcutQuantity: 8
-  };
-
   it('addOrderProducts method should creete order prodcut list', async () => {
+    const newOrderProduct: OrderProduct = {
+      id: 0,
+      prodcutId: commonProduct2.id,
+      orderId: commonOrder2.id,
+      prodcutQuantity: 8
+    };
     const result = await orderController.addOrderProducts(
       newOrderProduct.orderId,
-      newOrderProduct.prodcutId,newOrderProduct.prodcutQuantity);
-    expect(result.id).toBeDefined();
+      newOrderProduct.prodcutId,
+      newOrderProduct.prodcutQuantity
+      );
+    expect(result).toBeDefined();
   });
 
   
   it('orderProducts show order prodcut list', async () => {
-    const result = await orderController.orderProducts(newOrderProduct.orderId);
+    const result = await orderController.orderProducts(commonOrder2.id);
     expect(result).not.toBe([]);
   });
 

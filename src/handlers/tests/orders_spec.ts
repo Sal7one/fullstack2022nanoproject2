@@ -4,7 +4,7 @@ import {
   commonUser2,
   commonProduct2,
   commonOrder2
-}from '../../testSetup_spec';
+}from '../../tests/testSetup_spec';
 
 const request = supertest(app);
 

@@ -4,7 +4,7 @@ import app from '../../app';
 const request = supertest(app);
 import { 
   commonProduct1,
-}from '../../testSetup_spec';
+}from '../../tests/testSetup_spec';
 
 describe('testing Prodcuts endpoints', () => {
 

@@ -1,6 +1,6 @@
 import { User, UserController } from '../users';
 
-import { commonUser2 } from '../../testSetup_spec';
+import { commonUser2 } from '../../tests/testSetup_spec';
 const userController = new UserController();
 
 describe('testing User model', () => {

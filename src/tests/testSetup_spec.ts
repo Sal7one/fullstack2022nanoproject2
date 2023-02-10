@@ -1,7 +1,7 @@
-import OrderController, { Order, OrderProduct } from "./models/orders";
-import { Product, ProductController } from "./models/products";
-import { User, UserController } from "./models/users";
-import client from "./database/database";
+import OrderController, { Order, OrderProduct } from "../models/orders";
+import { Product, ProductController } from "../models/products";
+import { User, UserController } from "../models/users";
+import client from "../database/database";
 
 const userController = new UserController();
 const productController = new ProductController();

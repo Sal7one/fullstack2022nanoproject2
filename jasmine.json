@@ -1,7 +1,5 @@
 {
   "spec_dir":"./dist/*",
-  "spec_files": [
-    "testSetup_spec.js",
-    "**/*[sS]pec.js"],
+  "spec_files": ["**/*[sS]pec.js"],
   "random": false
 }
