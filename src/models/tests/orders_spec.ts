@@ -1,5 +1,12 @@
 import OrderController, { Order, OrderProduct } from '../orders';
 
+import { 
+  commonUser2,
+  commonOrder1,
+  commonOrder2,
+  commonProduct1
+ } from '../../testSetup_spec';
+
 const orderController = new OrderController();
 
 describe('testing order model', () => {
@@ -26,7 +33,7 @@ describe('testing order model', () => {
   it('Create on model order', async () => {
     const newOrder: Order = {
       id: 0,
-      userId: 1,
+      userId: commonUser2.id,
       status: "ACTIVE"
     };
 
@@ -34,21 +41,22 @@ describe('testing order model', () => {
     expect(result.id).not.toBeNull();
   });
 
-  it('show method should get user with id 1', async () => {
-    const result = await orderController.show(1);
+  it(`show method should get order`, async () => {
+    const result = await orderController.show(commonOrder2.id);
     expect(result).not.toBeNull();
   });
 
   
   const newOrderProduct: OrderProduct = {
     id: 0,
-    prodcutId: 1,
-    orderId: 1,
-    prodcutQuantity: 15
+    prodcutId: commonProduct1.id,
+    orderId: commonOrder1.id,
+    prodcutQuantity: 8
   };
 
   it('addOrderProducts method should creete order prodcut list', async () => {
-    const result = await orderController.addOrderProducts(newOrderProduct.orderId,
+    const result = await orderController.addOrderProducts(
+      newOrderProduct.orderId,
       newOrderProduct.prodcutId,newOrderProduct.prodcutQuantity);
     expect(result.id).toBeDefined();
   });

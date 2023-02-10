@@ -1,5 +1,9 @@
 import { ProductController, Product} from '../products';
 
+import { 
+  commonProduct2
+ } from '../../testSetup_spec';
+
 const productController = new ProductController();
 
 describe('Testing Prodcuts model', () => {
@@ -27,9 +31,9 @@ describe('Testing Prodcuts model', () => {
     expect(result.name).toEqual(newItem.name);
   });
 
-  it('show method should get product with id 1', async () => {
-    const result = await productController.show(1);
-    expect(result!!.id).toEqual(1);
+  it(`show method should get product `, async () => {
+    const result = await productController.show(commonProduct2.id);
+    expect(result!!.id).toEqual(commonProduct2.id);
   });
 
   it('index method should get products list', async () => {

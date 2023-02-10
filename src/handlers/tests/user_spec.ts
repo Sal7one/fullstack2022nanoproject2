@@ -2,6 +2,9 @@ import supertest from 'supertest';
 import app from '../../app';
 
 const request = supertest(app);
+import { 
+  commonUser1,
+}from '../../testSetup_spec';
 
 describe('testing User endpoints', () => {
   let token = '';
@@ -24,9 +27,9 @@ describe('testing User endpoints', () => {
 
   it('show endpoint for user_id: 1', async () => {
     const response = await request
-      .get('/users/1')
+      .get(`/users/${commonUser1.id}`)
       .set('Authorization', `Bearer ${token}`);
-    expect(response.body.user.id).toEqual(1);
+    expect(response.body.user.firstname).toEqual(commonUser1.firstname);
   });
 
   it('create endpoint', async () => {

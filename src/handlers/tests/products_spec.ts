@@ -2,8 +2,14 @@ import supertest from 'supertest';
 import app from '../../app';
 
 const request = supertest(app);
+import { 
+  commonProduct1,
+}from '../../testSetup_spec';
 
 describe('testing Prodcuts endpoints', () => {
+
+
+
      // Get token 
      let token  = ""
      beforeAll(async () => {
@@ -33,8 +39,8 @@ describe('testing Prodcuts endpoints', () => {
 
   it('show endpoint for product: 1', async () => {
     const response = await request
-      .get('/products/1')
-    expect(response.body.product.id).toEqual(1);
+      .get(`/products/${commonProduct1.id}`)
+    expect(response.body.product.name).toEqual(commonProduct1.name);
   });
 
   it('create endpoint', async () => {

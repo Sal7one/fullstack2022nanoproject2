@@ -1,6 +1,44 @@
 # Storefront Backend Project
 
-### DB Setup is at the end of the document
+### DB Setup (Important)
+
+```
+
+**Create user**
+
+```shell
+CREATE USER full_stack_user WITH PASSWORD 'password1234';
+```
+
+**Create Databases**
+
+```shell
+#Dev Database
+CREATE DATABASE store_api_dev;
+
+#Test Database
+CREATE DATABASE store_api_test;
+
+```
+
+**GRANT all privileges to the user in the created databases**
+
+```shell
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO full_stack_user;
+\c store_api_dev
+GRANT ALL PRIVILEGES ON DATABASE store_api_dev TO full_stack_user;
+ALTER DATABASE store_api_dev OWNER TO full_stack_user;
+\c store_api_test
+GRANT ALL PRIVILEGES ON DATABASE store_api_test TO full_stack_user;
+ALTER DATABASE store_api_test OWNER TO full_stack_user;
+```
+
+
+# Test Setup
+
+```
+ npm run test
+ ```
 
 
 # Api Refrence
@@ -285,35 +323,6 @@ Response
         "order_id": 1
     }
 }
-```
-
-**Create user**
-
-```shell
-CREATE USER full_stack_user WITH PASSWORD 'password1234';
-```
-
-**Create Databases**
-
-```shell
-#Dev Database
-CREATE DATABASE store_api_dev;
-
-#Test Database
-CREATE DATABASE store_api_test;
-
-#Prod Database
-CREATE DATABASE store_api_prod;
-```
-
-**GRANT all privileges to the user in the created databases**
-
-```shell
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO full_stack_user;
-GRANT ALL PRIVILEGES ON DATABASE store_api_dev TO full_stack_user;
-GRANT ALL PRIVILEGES ON DATABASE store_api_test TO full_stack_user;
-GRANT ALL PRIVILEGES ON DATABASE store_api_prod TO full_stack_user;
-```
 
 There is a ".env.example" file provided please put the credentials then rename it to be ".env"
 

@@ -14,6 +14,8 @@ import {
 let client: Pool;
 
 const PORT_NUMBER: number = parseInt(<string>POSTGRES_PORT, 10) || 5432;
+console.log("process.env: "+ ENV)
+
 
 if (ENV === 'test') {
   client = new Pool({
@@ -32,6 +34,7 @@ if (ENV === 'test') {
     password: POSTGRES_PASS
   });
 } else {
+
   client = new Pool({
     host: POSTGRES_HOST,
     port: PORT_NUMBER,

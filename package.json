@@ -4,15 +4,15 @@
   "description": "udacity storefront_backend by Sal7one",
   "main": "src/app.ts",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "cross-env ENV=dev node dist/src/app.js",
     "watch": "tsc-watch --esModuleInterop src/app.ts --outDir ./dist --onSuccess \"node ./dist/src/app.js\"",
     "build": "npx tsc",
     "lint": "eslint --ignore-path .eslintignore --ext .ts .",
     "prettier": "prettier --config .prettierrc src/*.ts --write",
     "jasmine": "jasmine --config=jasmine.json",
-    "test": "npm run build && npm run jasmine",
-    "migrate:up": "npx db-migrate up",
-    "migrate:down": "npx db-migrate reset"
+    "test": "npx db-migrate up --config ./dbtest.json && npm run build && cross-env ENV=test npm run jasmine",
+    "migrate:up": "npx db-migrate up --config ./dbdev.json",
+    "migrate:down": "npx db-migrate reset --config ./dbdev.json"
   },
   "author": "Udacity",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.3",

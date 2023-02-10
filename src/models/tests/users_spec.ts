@@ -1,5 +1,6 @@
 import { User, UserController } from '../users';
 
+import { commonUser2 } from '../../testSetup_spec';
 const userController = new UserController();
 
 describe('testing User model', () => {
@@ -28,9 +29,9 @@ describe('testing User model', () => {
     expect(result.firstname).toEqual(newUser.firstname);
   });
 
-  it('show method should get user with id 1', async () => {
-    const result = await userController.show(1);
-    expect(result!!.id).toEqual(1);
+  it(`show method should get user`, async () => {
+    const result = await userController.show(commonUser2.id);
+    expect(result!!.firstname).toEqual(commonUser2.firstname);
   });
 
   
